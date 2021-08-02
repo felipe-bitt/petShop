@@ -21,26 +21,69 @@
                 <hr />
                 <div class="form-todo form-group">
                 <p>
-                    <input placeholder="User" type="text" name="user" class="form-control" />
+                    <input placeholder="User" type="text" name="user" class="form-control" v-model="user" />
                 </p>
                 <p>
-                    <input placeholder="E-mail" type="text" name="email" class="form-control">
+                    <input placeholder="E-mail" type="text" name="email" class="form-control" v-model="email">
                 </p>
                 <p>
-                    <input placeholder="Password" type="password" name="password" class="form-control">
+                    <input placeholder="Password" type="password" name="password" class="form-control" v-model="password">
                 </p>
                 <p>
-                    <input placeholder="Verify your password" type="password" name="passwordV" class="form-control">
+                    <input placeholder="Verify your password" type="password" name="passwordV" class="form-control" v-model="passwordV">
                 </p>
                 <p>
-                    <input placeholder="Pet" type="text" name="pet" class="form-control">
+                    <input placeholder="Pet" type="text" name="pet" class="form-control" v-model="pet">
                 </p>
-                <button type="Submit" class="btn btn-primary">Confirm</button>
+                <button v-on:click="addUser" type="Submit" class="btn btn-primary">Submit</button>
+                <div class="list-group">
+                    <div class="list-group-item" v-for="u in users">
+                        <br />
+                        <p>User: {{u.user}}</p>
+                        <p>Pet: {{u.pet}}</p>
+                    </div>
+                </div>
                 </div>
                 <hr>
             </div>
-            `
+            `,
+            data() {
+                return {
+                    users: [],
+                    user: '',
+                    email: '',
+                    password: '',
+                    passwordV: '',
+                    pet: ''
+                    
+                }
+            },
+            methods: {
+                addUser() {
+                    if(this.user.trim() === '' || this.email.trim() === '' || this.password.trim() === '' || this.passwordV.trim() === '' || this.pet.trim() === '') {
+                        return;
+                    }
+                    if(this.passwordV == this.password) {
+                    this.users.push({
+                        user: this.user,
+                        email: this.email,
+                        password: this.password,
+                        pet: this.pet
+                    
+                        })
+                        this.user = '',
+                        this.email = '',
+                        this.password = '',
+                        this.passwordV = '',
+                        this.pet = ''
+                        
+                    } else {
+                        return alert("Password don't match");
+                    }
+                }
+            }
         })
     </script>
+    
 </body>
 </html>
